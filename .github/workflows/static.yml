@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMECOINSONG 🦝 | Meme'd Up!</title>
+    <style>
+        :root {
+            --primary: #00E6C3;
+            --secondary: #2A2A2A;
+            --accent: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .audio-controls button {
+            background: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .audio-controls button:hover {
+            transform: scale(1.1);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 230, 195, 0.2) 0%, rgba(26, 26, 26, 1) 70%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .logo {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .title {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 230, 195, 0.5);
+        }
+
+        .motto {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+
+        .features {
+            padding: 100px 20px;
+            background: #2a2a2a;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(0, 230, 195, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .cta {
+            padding: 15px 30px;
+            background: var(--primary);
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .cta:hover {
+            transform: scale(1.1);
+        }
+
+        .floating-coins {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+            .motto {
+                font-size: 1.5em;
+            }
+            .logo {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="audio-controls">
+        <button id="toggleAudio" aria-label="Toggle music">
+            🔊
+        </button>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="sddddd.png" alt="MEMECOINSONG Raccoon Logo" class="logo">
+            <h1 class="title">MEMECOINSONG</h1>
+            <p class="motto">Get Meme'd Up! 🚀</p>
+            <a href="#" class="cta">Join the Movement</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Community Driven</h3>
+                <p>Join our vibrant community of meme lovers and crypto enthusiasts!</p>
+            </div>
+            <div class="feature-card">
+                <h3>Innovative Tokenomics</h3>
+                <p>Built with advanced tokenomics to ensure sustainable growth</p>
+            </div>
+            <div class="feature-card">
+                <h3>Musical NFTs</h3>
+                <p>Unique musical NFTs that combine memes with melody</p>
+            </div>
+        </div>
+    </section>
+
+    <audio id="backgroundMusic" loop>
+        <source src="AANC movement.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Audio Control
+        const audio = document.getElementById('backgroundMusic');
+        const toggleButton = document.getElementById('toggleAudio');
+        let isPlaying = false;
+
+        // Wait for user interaction before playing
+        document.addEventListener('click', function initAudio() {
+            if (!isPlaying) {
+                audio.play();
+                isPlaying = true;
+                toggleButton.textContent = '🔊';
+            }
+            document.removeEventListener('click', initAudio);
+        }, { once: true });
+
+        toggleButton.addEventListener('click', function() {
+            if (isPlaying) {
+                audio.pause();
+                toggleButton.textContent = '🔈';
+            } else {
+                audio.play();
+                toggleButton.textContent = '🔊';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Floating Coins Animation
+        function createFloatingCoin() {
+            const coin = document.createElement('div');
+            coin.className = 'floating-coins';
+            
+            // Random position
+            coin.style.left = Math.random() * 100 + 'vw';
+            coin.style.top = Math.random() * 100 + 'vh';
+            
+            document.body.appendChild(coin);
+            
+            // Animation
+            const animation = coin.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0 },
+                { transform: 'translateY(-100vh) rotate(360deg)', opacity: 0.3 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                coin.remove();
+            };
+        }
+
+        // Create floating coins periodically
+        setInterval(createFloatingCoin, 1000);
+    </script>
+</body>
+</html>
